@@ -62,4 +62,10 @@ public class EmployeeController {
         }
         return st;
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path="/viewprofileemployee",consumes = "application/json",produces = "application/json")
+    public List<Employee> View(@RequestBody Employee e){
+        return (List<Employee>) dao.ViewProfileEmployee(e.getId());
+    }
 }
