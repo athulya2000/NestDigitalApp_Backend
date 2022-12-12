@@ -13,17 +13,15 @@ import java.util.Map;
 
 @RestController
 public class EmployeeController {
-//    @Autowired
-//    private EmployeeDao dao;
-//
-//    @CrossOrigin(origins = "*")
-//    @PostMapping(path="/addemployee",consumes = "application/json",produces = "application/json")
-//    public Map<String,String> AddEmployee(@RequestBody Employee e){
-//        HashMap<String,String>  map=new HashMap<>();
-//        String employeecode=e.getEmployeecode().toString();
-//        String employeename=e.getEmployeename().toString();
-//        String designation
-//        map.put("status","success");
-//        return map;
-//    }
+    @Autowired
+    private EmployeeDao dao;
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path="/addemployee",consumes = "application/json",produces = "application/json")
+    public Map<String,String> AddEmployee(@RequestBody Employee e){
+        HashMap<String,String>  map=new HashMap<>();
+        dao.save(e);
+        map.put("status","success");
+        return map;
+    }
 }
