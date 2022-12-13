@@ -1,10 +1,16 @@
 package com.example.NestDigitalApp_Backend.controller;
 
 import com.example.NestDigitalApp_Backend.dao.EmployeeDao;
+import com.example.NestDigitalApp_Backend.dao.LeaveCounterDao;
 import com.example.NestDigitalApp_Backend.model.Employee;
+
+import com.example.NestDigitalApp_Backend.model.LeaveCounter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.security.PrivateKey;
+import java.time.Year;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +19,24 @@ import java.util.Map;
 public class EmployeeController {
     @Autowired
     private EmployeeDao dao;
+    @Autowired
+    private LeaveCounterDao dao5;
+    int year= Year.now().getValue();
 
     @CrossOrigin(origins = "*")
     @PostMapping(path="/addemployee",consumes = "application/json",produces = "application/json")
     public Map<String,String> AddEmployee(@RequestBody Employee e){
         HashMap<String,String>  map=new HashMap<>();
+
         dao.save(e);
+        LeaveCounter l=new LeaveCounter();
+        l.setEmployeeid(e.getId());
+        l.setCasual(20);
+        l.setSeek(7);
+        l.setSpecial(3);
+        l.setYear(String.valueOf(year));
+        dao5.save(l);
+        map.put("employeeid",String.valueOf(e.getId()));
         map.put("status","success");
         return map;
     }
