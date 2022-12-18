@@ -36,6 +36,8 @@ public class LogController {
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/viewdailyemployeelog", consumes = "application/json", produces = "application/json")
     public List<EmployeeLog> ViewDailyEmployeeLog(@RequestBody EmployeeLog el) {
+        String date=el.getDate();
+        System.out.println(date);
         return (List<EmployeeLog>) dao3.ViewDailyEmployeeLog(el.getDate());
     }
 
@@ -58,6 +60,8 @@ public class LogController {
     @CrossOrigin(origins = "*")
     @PostMapping(path="/viewdailyvisitorslog",consumes = "application/json", produces = "application/json")
     public List<VisitorsLog> ViewDailyVisitorsLog(@RequestBody VisitorsLog vl){
+        String date=vl.getDate();
+        System.out.println(date);
         return (List<VisitorsLog>) dao4.ViewDailyVisitorsLog(vl.getDate());
     }
 }
