@@ -36,7 +36,7 @@ public class EmployeeController {
         l.setSpecial(3);
         l.setYear(String.valueOf(year));
         dao5.save(l);
-        map.put("employeeid",String.valueOf(e.getId()));
+//        map.put("employeeid",String.valueOf(e.getId()));
         map.put("status","success");
         return map;
     }
@@ -69,12 +69,15 @@ public class EmployeeController {
     @PostMapping(path="/employeelogin",consumes = "application/json",produces = "application/json")
     public Map<String,String> EmployeeLogin(@RequestBody Employee e){
         HashMap<String,String> st=new HashMap<>();
+        String username=e.getUsername().toString();
+        String password=e.getPassword().toString();
+        System.out.println(username);
+        System.out.println(password);
         List<Employee> result=(List<Employee>) dao.EmployeeLogin(e.getUsername(),e.getPassword());
+        st.put("employeeid",String.valueOf(result.get(0).getId()));
         if(result.size()==0){
             st.put("status"," Login failed");
         }else {
-            int id=result.get(0).getId();
-            st.put("employeeId",String.valueOf(id));
             st.put("status","Successfully login");
 
         }
@@ -84,6 +87,8 @@ public class EmployeeController {
     @CrossOrigin(origins = "*")
     @PostMapping(path="/viewprofileemployee",consumes = "application/json",produces = "application/json")
     public List<Employee> View(@RequestBody Employee e){
+        String id=String.valueOf(e.getId());
+        System.out.println(id);
         return (List<Employee>) dao.ViewProfileEmployee(e.getId());
     }
 }

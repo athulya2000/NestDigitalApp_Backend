@@ -3,10 +3,7 @@ package com.example.NestDigitalApp_Backend.controller;
 import com.example.NestDigitalApp_Backend.dao.SecurityDao;
 import com.example.NestDigitalApp_Backend.model.Security;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +20,12 @@ public class SecurityController {
         dao1.save(s);
         map.put("status","success");
         return map;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/viewallsecurity")
+    public List<Security> ViewAllSecurity(){
+        return (List<Security>) dao1.findAll();
     }
 
     @CrossOrigin(origins = "*")
